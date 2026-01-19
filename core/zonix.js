@@ -24,7 +24,7 @@ const CODEC_LIST = {
 
 const CLIENTS_WITHOUT_CIPHER = ['IOS', 'ANDROID', 'YTSTUDIO_ANDROID', 'YTMUSIC_ANDROID'];
 
-class YouTubeScraper {
+class znixdl {
     constructor() {
         this.innertube = null;
         this.lastRefreshedAt = null;
@@ -556,4 +556,4 @@ class YouTubeScraper {
     }
 }
 
-export default YouTubeScraper;
+export default znixdl;

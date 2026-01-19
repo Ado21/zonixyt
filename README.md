@@ -1,5 +1,5 @@
 <h1 align="center">
- <span style="color:#FF0000;">Zonix</span> <span style="color:#FFFFFF;">YouTube Downloader</span> ⚡
+ <span style="color:#FF0000;">[🐢] Zonix</span> <span style="color:#FFFFFF;">YouTube Downloader</span>
 </h1>
 
 <p align="center">
@@ -66,7 +66,7 @@ node json.js https://www.youtube.com/watch?v=dQw4w9WgXcQ 1080p
 Integra la potencia de Zonix en tus propios proyectos de Node.js.
 
 ```javascript
-import znixdl from './core/zonix.js';
+import znixdl from 'zonixyt';
 
 const scraper = new znixdl();
 

@@ -1,49 +1,51 @@
-# ⚡ Zonix YouTube Downloader
+<h1 align="center">
+ <span style="color:#FF0000;">Zonix</span> <span style="color:#FFFFFF;">YouTube Downloader</span> ⚡
+</h1>
 
-<div align="center">
+<p align="center">
+  <img src="https://img.shields.io/badge/Versión-1.0.0-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
+  <img src="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Estado-Estable-00FFAA?style=for-the-badge" />
+</p>
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?style=for-the-badge)
-![Node](https://img.shields.io/badge/node-%3E%3D18-green.svg?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)
-![Author](https://img.shields.io/badge/author-Ado-purple.svg?style=for-the-badge)
+---
+⊹ **Zonix** es una herramienta avanzada de ingeniería inversa para obtener **URLs de descarga directa** de YouTube, con soporte nativo para streams muxed (audio + video) y evasión de throttling.
 
-**El extractor de YouTube definitivo. Rápido, Robusto y Moderno.**
-
-</div>
+> [!IMPORTANT]  
+> Este proyecto está diseñado para ser rápido, robusto y evitar restricciones de velocidad mediante múltiples clientes (iOS, Android, Web).
 
 ---
 
-## 🚀 Introducción
+## ⟩ Requisitos
 
-**Zonix** no es otro scraper más. Es una solución de ingeniería inversa diseñada meticulosamente para obtener **URLs de descarga directa** de YouTube, incluyendo streams 'muxed' (audio + video combinados) que otras librerías ignoran.
+- **Node.js** (v18 o superior)
+- **Git**
 
-Construido sobre una arquitectura inteligente de **Multicliente Fallback** (iOS, Android, Web), Zonix garantiza el acceso a los formatos más difíciles de conseguir, evitando bloqueos y restricciones de velocidad.
+---
 
-## ✨ Características Principales
+# ⊹ Instalación
 
-- 🔓 **Bypass de Cipher/Signature**: Decodificación nativa de firmas de YouTube.
-- 🎬 **Soporte Muxed Nativo**: Obtiene enlaces con Audio y Video combinados (listos para reproducir).
-- ⚡ **Velocidad sin límites**: Evasión de throttling mediante clientes móviles.
-- 🛠️ **Arquitectura Robusta**: Estrategia de fallback automática (iOS → Web → Android).
-- 📦 **100% JSON Output**: Ideal para microservicios y APIs REST.
-- 🔧 **Filtrado Avanzado**: Selecciona codec (h264, vp9, av1) y calidad (144p - 4k).
-- 💻 **ES Modules**: Código moderno y limpio compatible con los estándares actuales.
-
-## 📦 Instalación
-
-Clona el repositorio e instala las dependencias:
+> [!NOTE] 
+> Copia y pega los comandos en tu terminal uno por uno.
 
 ```bash
 git clone https://github.com/Ado21/zonixyt.git
+```
+
+```bash
 cd zonixyt
+```
+
+```bash
 npm install
 ```
 
-## 💻 Uso CLI (Línea de Comandos)
+---
 
-Zonix incluye una herramienta CLI potente diseñada para pipelines de datos. La salida es siempre un JSON puro y válido.
+# ✜ Uso (CLI)
 
-**Sintaxis:**
+Ejecuta el script directamente para obtener un JSON limpio y estructurado.
+
 ```bash
 node get-json.js <VIDEO_ID> [CALIDAD] [CODEC]
 ```
@@ -53,81 +55,40 @@ node get-json.js <VIDEO_ID> [CALIDAD] [CODEC]
 node get-json.js dQw4w9WgXcQ 1080 h264
 ```
 
-**Salida (Ejemplo):**
-```json
-{
-  "success": true,
-  "videoId": "dQw4w9WgXcQ",
-  "title": "Rick Astley - Never Gonna Give You Up",
-  "author": "Rick Astley",
-  "durationFormatted": "3:32",
-  "videoWithAudioUrl": "https://rr3---sn-...",
-  "downloads": {
-    "video": { "url": "...", "quality": "1080p", "codec": "h264" },
-    "audio": { "url": "...", "codec": "mp4a" }
-  }
-}
-```
+> [!WARNING] 
+> La salida es un JSON puro. Asegúrate de manejar la respuesta (stdout) en tu aplicación.
 
-## 📚 Uso como Librería
+---
 
-Integra Zonix en tu backend Node.js con facilidad.
+# ✜ Uso como Librería
+
+Integra la potencia de Zonix en tus propios proyectos de Node.js.
 
 ```javascript
 import YouTubeScraper from './youtube-scraper.js';
 
 const scraper = new YouTubeScraper();
 
-// 1. Iniciar extracción
-console.log("🔍 Analizando video...");
+// Obtener datos
 const data = await scraper.getDownloadUrls('dQw4w9WgXcQ', {
-    quality: '720', // '1080', '720', '480', etc.
-    codec: 'h264'   // 'h264', 'av1', 'vp9'
+    quality: '1080',
+    codec: 'h264'
 });
 
-// 2. Usar los datos
-if (data.muxed) {
-    console.log(`✅ Video con Audio encontrado: ${data.muxed.url}`);
-} else {
-    console.log("⚠️ Solo streams separados disponibles");
-}
+console.log(data.muxed.url); // URL lista para usar
 ```
 
-## 🔧 Configuración Avanzada
+---
 
-### Calidades Soportadas
-| Calidad | Valor |
-|---------|-------|
-| 4K      | `2160`|
-| 1440p   | `1440`|
-| 1080p   | `1080`|
-| 720p    | `720` |
-| 480p    | `480` |
-| 360p    | `360` |
+## 🐣 Autor
 
-### Codecs
-- **h264** (Recomendado para máxima compatibilidad .mp4)
-- **vp9** (Mejor compresión, común en WebM)
-- **av1** (Nueva generación, alta eficiencia)
-
-## 🏗️ Arquitectura Interna
-
-Zonix utiliza un sistema de **"Client Hopping"**:
-
-1.  **Intento Primario (iOS)**: Busca formatos MP4 estándar de alta compatibilidad.
-2.  **Fallback (Web)**: Si falla, consulta la API Web estándar.
-3.  **Deep Search (Android)**: Para streams difíciles o formatos específicos, utiliza la API de Android que suele exponer streams pre-combinados (muxed).
-
-## 🤝 Contribución
-
-Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cambios mayores.
-
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia MIT.
-Creado con ❤️ por **Ado**.
+<p align="center">
+  <a href="https://github.com/Ado21">
+    <img src="https://github.com/Ado21.png" width="220" height="220" alt="Ado" style="border-radius: 20px;" />
+  </a>
+</p>
 
 ---
-<div align="center">
-  <sub>Zonix Project 2026</sub>
-</div>
+
+## ✰ Licencia
+Derechos reservados por Ado

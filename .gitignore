@@ -1,0 +1,11 @@
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+downloads/
+*.mp4
+*.webm
+*.mp3
+*.m4a
+.DS_Store
+.env

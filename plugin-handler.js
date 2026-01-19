@@ -1,4 +1,4 @@
-import YouTubeScraper from './youtube-scraper.js';
+import YouTubeScraper from './zonix.js';
 
 const scraper = new YouTubeScraper();
 

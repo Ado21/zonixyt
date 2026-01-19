@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Zonix YouTube Downloader - extractor de URLs de descarga (MP4/M4A)",
   "type": "module",
-  "main": "zonix.js",
+  "main": "core/zonix.js",
   "scripts": {
     "start": "node json.js"
   },
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Ado21/zonixyt#readme",
   "files": [
-    "zonix.js",
+    "core/zonix.js",
     "json.js",
     "README.md",
     "LICENSE"

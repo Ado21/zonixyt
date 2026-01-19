@@ -47,13 +47,14 @@ npm install
 Ejecuta el script directamente para obtener un JSON limpio y estructurado.
 
 ```bash
-node get-json.js <VIDEO_ID> [CALIDAD] [CODEC]
+node json.js <URL_VIDEO> [CALIDAD]
 ```
 
 **Ejemplo:**
 ```bash
-node get-json.js dQw4w9WgXcQ 1080 h264
+node json.js https://www.youtube.com/watch?v=dQw4w9WgXcQ 1080p
 ```
+*También funciona con links de Shorts.*
 
 > [!WARNING] 
 > La salida es un JSON puro. Asegúrate de manejar la respuesta (stdout) en tu aplicación.
@@ -65,14 +66,12 @@ node get-json.js dQw4w9WgXcQ 1080 h264
 Integra la potencia de Zonix en tus propios proyectos de Node.js.
 
 ```javascript
-import YouTubeScraper from './youtube-scraper.js';
+import znixdl from './core/zonix.js';
 
-const scraper = new YouTubeScraper();
+const scraper = new znixdl();
 
-// Obtener datos
-const data = await scraper.getDownloadUrls('dQw4w9WgXcQ', {
-    quality: '1080',
-    codec: 'h264'
+const data = await scraper.geturls('https://youtube.com/shorts/m1of-EZyPEQ?si=UjUbkhdHs4KFns8r', {
+    quality: '1080p'
 });
 
 console.log(data.muxed.url); // URL lista para usar

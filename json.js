@@ -1,9 +1,8 @@
-import znixdl from './zonix.js';
+import znixdl from './core/zonix.js';
 
 const scraper = new znixdl();
 const url = process.argv[2] || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 const quality = process.argv[3] || '720p';
-// Codec hidden param if needed, or default to h264
 const codec = process.argv[4] || 'h264';
 
 const originalLog = console.log;

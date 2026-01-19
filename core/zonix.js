@@ -24,9 +24,6 @@ const CODEC_LIST = {
 
 const CLIENTS_WITHOUT_CIPHER = ['IOS', 'ANDROID', 'YTSTUDIO_ANDROID', 'YTMUSIC_ANDROID'];
 
-/**
- * Clase principal del scraper de YouTube
- */
 class YouTubeScraper {
     constructor() {
         this.innertube = null;
@@ -34,9 +31,6 @@ class YouTubeScraper {
         this.PLAYER_REFRESH_PERIOD = 1000 * 60 * 15;
     }
 
-    /**
-     * Inicializa la instancia de Innertube
-     */
     async initialize() {
         if (!this.innertube || this.shouldRefreshPlayer()) {
             this.innertube = await Innertube.create({
@@ -46,17 +40,11 @@ class YouTubeScraper {
         }
     }
 
-    /**
-     * Verifica si es necesario refrescar el player
-     */
     shouldRefreshPlayer() {
         if (!this.lastRefreshedAt) return true;
         return this.lastRefreshedAt + this.PLAYER_REFRESH_PERIOD < Date.now();
     }
 
-    /**
-     * Extrae el ID del video desde diferentes formatos de URL
-     */
     extractVideoId(url) {
         const patterns = [
             /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
@@ -68,23 +56,16 @@ class YouTubeScraper {
             if (match) return match[1];
         }
 
-        // Si no coincide con patrones conocidos pero parece un ID válido
         if (url.length === 11) return url;
 
         throw new Error('URL de YouTube inválida o ID no encontrado');
     }
 
-    /**
-     * Normaliza la calidad del video al valor más cercano disponible
-     */
     normalizeQuality(resolution) {
         const shortestSide = Math.min(resolution.height, resolution.width);
         return VIDEO_QUALITIES.find(qual => qual >= shortestSide) || VIDEO_QUALITIES[VIDEO_QUALITIES.length - 1];
     }
 
-    /**
-     * Obtiene información básica del video
-     */
     async getVideoInfo(videoId, options = {}) {
         await this.initialize();
 
@@ -156,9 +137,6 @@ class YouTubeScraper {
         }
     }
 
-    /**
-     * Obtiene URL de descarga desde un formato de youtubei.js
-     */
     getFormatUrl(format) {
         if (!format) return undefined;
 
@@ -194,10 +172,6 @@ class YouTubeScraper {
         return preferred || ranked[0];
     }
 
-    /**
-     * Organiza y filtra los formatos disponibles por códec
-     * Basado en la lógica de cobalt/api/src/processing/services/youtube.js
-     */
     organizeFormats(info, codec = 'h264', itag = null) {
         const sortedFormats = {
             h264: { video: [], audio: [], bestVideo: null, bestAudio: null },
@@ -241,10 +215,6 @@ class YouTubeScraper {
         return sortedFormats;
     }
 
-    /**
-     * Selecciona el mejor formato de video según calidad y códec
-     * Implementa fallbacks automáticos como cobalt
-     */
     selectVideoFormat(sortedFormats, codec, quality) {
         let formats = sortedFormats[codec];
         
@@ -292,10 +262,6 @@ class YouTubeScraper {
         return { video, codec };
     }
 
-    /**
-     * Extrae URLs de descarga para video y audio
-     * Implementa la misma lógica de selección que cobalt
-     */
     async geturls(urlOrId, options = {}) {
         const videoId = this.extractVideoId(urlOrId);
 
@@ -507,9 +473,6 @@ class YouTubeScraper {
         return result;
     }
 
-    /**
-     * Descarga un archivo desde una URL
-     */
     async downloadFile(url, outputPath, label = 'archivo') {
         const response = await axios({
             method: 'GET',
@@ -528,9 +491,6 @@ class YouTubeScraper {
         });
     }
 
-    /**
-     * Descarga video y audio por separado
-     */
     async downloadVideoAndAudio(videoId, options = {}) {
         const {
             quality = '720',
@@ -558,9 +518,6 @@ class YouTubeScraper {
         return { videoPath, audioPath, data };
     }
 
-    /**
-     * Descarga solo audio
-     */
     async downloadAudio(videoId, options = {}) {
         const {
             codec = 'h264',
@@ -593,9 +550,6 @@ class YouTubeScraper {
         return { audioPath, data };
     }
 
-    /**
-     * Obtiene solo información del video sin descargar
-     */
     async getInfo(videoId, options = {}) {
         const data = await this.geturls(videoId, options);
         return data;

@@ -34,5 +34,8 @@
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
     "youtubei.js": "15.1.1"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^5.1.0"
   }
 }

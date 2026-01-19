@@ -79,7 +79,7 @@ console.log(data.muxed.url); // URL lista para usar
 
 ---
 
-# 🎵 Descargar Audio (M4A)
+# 🌾 Descargar Audio (M4A)
 
 Zonix extrae automáticamente el audio en formato M4A (AAC) cuando usas el codec por defecto (`h264`).
 
@@ -99,7 +99,7 @@ const scraper = new znixdl();
 const data = await scraper.geturls('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
 
 if (data.downloads && data.downloads.audio) {
-    console.log('🔗 URL del Audio (m4a):', data.downloads.audio.url);
+    console.log('URL del Audio (m4a):', data.downloads.audio.url);
 }
 ```
 
